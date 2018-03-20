@@ -4,14 +4,18 @@ using namespace std;
 struct Heap{
     int arr[1000000];
     int n;//will be the current element quantity
-    
-    
 }typedef Heap;
 
-void swap(int *a,int *b){
-    int aux = *a;*a=*b;*b=aux;
+void swap(Heap *H,int a,int b){
+    int aux = H->arr[a];H->arr[a]=H->arr[b];H->arr[b]=aux;
 }
-
+void heapfy(Heap *h,int i,int n);
+void buildHeap(Heap *H){
+	for(int i=(H->n)/2;i>=0;i--){
+        int n = H->n;
+		heapfy(H,i, n);
+		}
+}
 int leftkid(Heap *H,int parent){
     int left = (parent*2+1);
     if(left<=H->n)
@@ -27,12 +31,44 @@ int rightkid(Heap *H,int parent){
         return -1;
     
 }
-void siftUp(Heap *H, int index){
-
+void siftUp(Heap *h, int i){
+	int trocou=1,parent;
+    while(i>0&&trocou){
+    	trocou=0;
+		parent = (i-1)/2;
+		if(h->arr[i] > h->arr[parent]){
+			swap (h, i, parent);
+			i=parent;
+			trocou=1;
+	    }
 }
-void siftDown(Heap *H, int index){
-
 }
+void heapfy(Heap *h,int i,int n){
+    //siftDown??
+	int trocou=1,left,right;
+    while (i<n/2 && trocou){
+    	trocou = 0;
+        left=leftkid(h,i);
+        right=rightkid(h,i);
+        if(right >=0){//means it has right child
+        	int bigger= h->arr[left] > h->arr[right] ? left : right;
+            if(h->arr[i] < h->arr[bigger]){
+                swap(h, i, bigger);
+                i=bigger;
+                trocou=1;
+             }
+        }else{//in case it has only left child
+        	if(h->arr[i] < h->arr[left]){
+        	    swap(h, i, left);
+                i=left;
+                trocou=1;
+            }
+        }
+        
+      //  i++;// probably dont need this
+    } 
+	
+	}
 void insert(Heap *H, int key){
     if(H->n+1<1000000){
         H->arr[H->n]=key;
@@ -40,25 +76,37 @@ void insert(Heap *H, int key){
         siftUp(H, H->n-1);
     }
 }
-int remove(Heap *H){
-    int key = H->arr[0];
-    H->arr[0] = H->arr[H->n];
-    H->n--;
-    siftDown(H,0);
-    return key;
+int remove(Heap *h){
+	if(h->n > -1){//if its not empty
+        int key=h->arr[0];
+		h->arr[0]=h->arr[h->n-1];
+		h->n--;
+        int n=h->n;
+		heapfy(h, 0,n);
+        return key;
+	}else
+	  cout<<" empty heap, cannot remove\n ";
+	return -1;
 }
-void heapfy(Heap *H){
 
-}
-void heapsort(Heap *H){
-
-}
 void print(Heap *H){
     for(int i= 0;i<=H->n;i++)
         cout<<H->arr[i]<<" ";
 
     cout<<endl;
 }
+void heapsort(Heap *h){
+	if(h->n>0){//if is -1 it is empty, if is 0, it has only one element
+        for(int i=h->n;i>0;i--){
+		    swap (h, 0, i); //swap bigger one with last one
+		    heapfy(h,0, i-1);//heapfy until i-1 position
+		
+		}
+	}
+	
+	
+}
+
 
 int main(){
     Heap *H = new Heap();
@@ -66,5 +114,5 @@ int main(){
     
 
 
-return 0;
+    return 0;
 }
