@@ -74,7 +74,8 @@ void insert(Heap *H, int key){
         H->arr[H->n]=key;
         H->n++;
         siftUp(H, H->n-1);
-    }
+    }else
+        cout<<"full heap, cannot insert\n";
 }
 int remove(Heap *h){
 	if(h->n > -1){//if its not empty
@@ -90,7 +91,7 @@ int remove(Heap *h){
 }
 
 void print(Heap *H){
-    for(int i= 0;i<=H->n;i++)
+    for(int i= 0;i<=H->n-1;i++)
         cout<<H->arr[i]<<" ";
 
     cout<<endl;
@@ -111,7 +112,18 @@ void heapsort(Heap *h){
 int main(){
     Heap *H = new Heap();
     
-    
+    insert(H,2);
+    insert(H,7);
+    insert(H,26);
+    insert(H,25);
+    insert(H,19);
+    insert(H,17);
+    insert(H,1);
+    insert(H,90);
+    insert(H,3);
+    insert(H,36);
+
+    print(H);
 
 
     return 0;
