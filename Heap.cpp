@@ -98,7 +98,7 @@ void print(Heap *H){
 }
 void heapsort(Heap *h){
 	if(h->n>0){//if is -1 it is empty, if is 0, it has only one element
-        for(int i=h->n;i>0;i--){
+        for(int i=h->n-1;i>0;i--){
 		    swap (h, 0, i); //swap bigger one with last one
 		    heapfy(h,0, i-1);//heapfy until i-1 position
 		
@@ -122,7 +122,7 @@ int main(){
     insert(H,90);
     insert(H,3);
     insert(H,36);
-
+    heapsort(H);
     print(H);
 
 
