@@ -10,6 +10,7 @@ void swap(Heap *H,int a,int b){
     int aux = H->arr[a];H->arr[a]=H->arr[b];H->arr[b]=aux;
 }
 void heapfy(Heap *h,int i,int n);
+
 void buildHeap(Heap *H){
 	for(int i=(H->n)/2;i>=0;i--){
         int n = H->n;
@@ -44,7 +45,7 @@ void siftUp(Heap *h, int i){
 }
 }
 void heapfy(Heap *h,int i,int n){
-    //siftDown??
+    //siftDown?? yes it is
 	int trocou=1,left,right;
     while (i<n/2 && trocou){
     	trocou = 0;
@@ -64,8 +65,6 @@ void heapfy(Heap *h,int i,int n){
                 trocou=1;
             }
         }
-        
-      //  i++;// probably dont need this
     } 
 	
 	}
@@ -83,7 +82,7 @@ int remove(Heap *h){
 		h->arr[0]=h->arr[h->n-1];
 		h->n--;
         int n=h->n;
-		heapfy(h, 0,n);
+		heapfy(h, 0,n);//siftdown
         return key;
 	}else
 	  cout<<" empty heap, cannot remove\n ";
