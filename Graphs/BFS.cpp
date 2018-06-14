@@ -1,4 +1,4 @@
-//BFS FOR BICOLORING PROBLEM
+//BFS FOR UNWEIGHTED GRAPHS MINIMUM DISTANCE
 
 int BFS(vector<int> adj[],int V,int start,int goal){
     queue<int> tovisit;
