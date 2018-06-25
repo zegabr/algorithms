@@ -1,71 +1,113 @@
+
+          
+
+Begin: 2018-06-12 19:03 UTC-3
+ Lista 3 - MST e DSU
+End: 2018-06-19 01:03 UTC-3
+150:00:00
+Ended
+Overview
+Problem
+Status
+Rank (150:00:00)
+0 Comments
+Previous12345…Next
+Username
+
+Prob
+	Result 
+	Time
+(ms)	Mem
+(MB)	Lang 
+	Submit Time
+jgsp2
+A
+Accepted
+510		
+C++
+11 days ago
+           
+All Copyright Reserved ©2018 Xu Han
+Server Time: 2018-06-25 08:59:42 UTC-3
+
+#14275276 | jgsp2's solution for [UVA-11631] [Problem A]
+Status
+Accepted
+Time
+510ms
+Length
+854
+Lang
+C++11 5.3.0
+Submitted
+2018-06-14 15:39:21
+Shared
+
+RemoteRunId
+21474556
+Select Code
 #include <bits/stdc++.h>
 using namespace std;
 
 typedef pair<int,int> ii;
 typedef pair<int,ii> iii;
-vector <iii> edgesList;
-int color[200000], vertices,edges,a,b,w,wmax,wmin,nextcolor,colorbefore,mergecolor;
-ii ab;
-iii w_ab;
+
+
+vector <iii> edges;
+int v,e,a,b,w,total,mst;
+int ds[200000+10];
+iii ed;
+
+void makeset(){
+	for(int i=0;i<v;i++)
+		ds[i]=i;
+}
+int find(int i){
+	if(ds[i]==i)
+		return i;
+	return ds[i]=find(ds[i]);
+}
+bool uni(int a, int b){
+	
+	if(find(a)==find(b))
+		return false;
+	else{
+		ds[find(b)]=find(a); 
+		return true;
+	}
+}
 
 
 int main(){
-    while(cin>>vertices>>edges && vertices!=0){
-        
-        edgesList.clear(); 
-
-        wmax=0;
-        for(int i=0;i<edges;i++){
-            color[i]=-1;//clear reset color
-           
-            cin>>a>>b>>w;
-            wmax+=w;
-            ab=make_pair(a,b);
-            w_ab=make_pair(w,ab);//triple created
-            edgesList.push_back(w_ab);//adding triple to edgelist
-        }
-        sort(edgesList.begin(),edgesList.end());//in crescent order of weights
-        
-        wmin=0;//Kruskal MST total weight
-        nextcolor=0;
-        for(int i=0;i<edges;i++){
-            w_ab=edgesList[i];
-            w=w_ab.first;
-            ab=w_ab.second;
-            a=ab.first; b=ab.second;
-            
-            
-            if(color[a]==-1 && color[b]==-1){//if neither one of vertices are in MST
-                color[a]=color[b]=++nextcolor;
-                wmin+=w;
-            }else if(color[a]==-1){//if b is but a isnt
-                color[a]=color[b];
-                wmin+=w;
-            }else if(color[b]==-1){//if a is but b isnt
-                color[b]=color[a];
-                wmin+=w;
-            }else{//both are in MST
-                if(color[a]!=color[b]){
-                    colorbefore=color[a];
-                    mergecolor=color[b];
-                    for(int k=0;k<edges;k++){
-                        if(color[k]==colorbefore)
-                            color[k]=mergecolor;
-                    }
-                    wmin+=w;
-                }
-            }
-            
-
-        }
-        
-        
-        cout<<wmax-wmin<<endl;
-    }
-
-
-
-
+    //ios::sync_with_stdio(0); cin.tie(0);
+	
+	while(cin>>v>>e && v!=0){
+		total=mst=0;
+		edges.clear();
+		for(int i=0;i<e;i++){
+			cin>>a>>b>>w;
+			edges.push_back({w,{a,b}});
+			total+=w;
+		}
+		sort(edges.begin(),edges.end());
+		makeset();
+		for(int i=0;i<e;i++){
+			ed=edges[i];
+			a=ed.second.first; b=ed.second.second;
+			if(uni(a,b)){
+				
+				mst+=ed.first;
+			}
+		
+		}
+		
+		cout<<total-mst<<endl;
+	
+	
+	}
 
     return 0;
 }
+   
+        
+
