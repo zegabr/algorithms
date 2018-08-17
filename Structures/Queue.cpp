@@ -1,60 +1,60 @@
 #include <iostream>
 using namespace std;
-struct node{
-    int key;
-    node *next;
+struct no{
+    int info;
+    no *prox;
 };
-struct filha{
-    node *cabeca,*bunda;
+struct fila{
+    no *inicio,*fim;
 
 };
 
-filha *inserir(filha *q,int key){
-        node *aux = new node();
-        aux->key=key;
-        aux->next=NULL;
-    if(q->cabeca==NULL){
-        q->cabeca=q->bunda=aux;
+fila *inserir(fila *q,int info){
+        no *aux = new no();
+        aux->info=info;
+        aux->prox=NULL;
+    if(q->inicio==NULL){
+        q->inicio=q->fim=aux;
         return q;
     }else{
-        q->bunda->next=aux;
-        q->bunda=aux;
+        q->fim->prox=aux;
+        q->fim=aux;
         return q;
     }
 }
 
-filha *remover(filha *q){
-    if(q->cabeca!=NULL)
-        q->cabeca=q->cabeca->next;
+fila *remover(fila *q){
+    if(q->inicio!=NULL)
+        q->inicio=q->inicio->prox;
     else
         cout<<"cannot remove because it is empty, you can cry now\n";
 
-    if(q->cabeca==NULL)//if its empty
-        q->bunda=NULL;
+    if(q->inicio==NULL)//if its empty
+        q->fim=NULL;
     return q;
 }
 
-void imprime(filha *q){
-    node *aux = q->cabeca;
-    cout<<"cabeca<---->bunda\n";
+void imprime(fila *q){
+    no *aux = q->inicio;
+    cout<<"inicio<---->fim\n";
     while(aux!=NULL){
-        cout<<aux->key<<" ";
-        aux=aux->next;
+        cout<<aux->info<<" ";
+        aux=aux->prox;
     }
     cout<<endl;
 }
-bool semCabeca(filha *q){
-    return q->cabeca==NULL ? true : false;
+bool seminicio(fila *q){
+    return q->inicio==NULL ? true : false;
 }
-int quantotemnacabeca(filha *q){
-    return q->cabeca->key;
+int quantotemnainicio(fila *q){
+    return q->inicio->info;
 }
-int quantotemnabunda(filha *q){
-    return q->bunda->key;
+int quantotemnafim(fila *q){
+    return q->fim->info;
 }
 
 int main(){
-    filha *q= new filha();
+    fila *q= new fila();
     //inserting
     q = inserir(q,1);
     imprime(q);
