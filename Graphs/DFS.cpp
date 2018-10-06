@@ -17,8 +17,7 @@ bool DFS(vector<int> adj[],int V,int start,int goal){//iterative dfs
         int current = tovisit.top();
         tovisit.pop();
 
-        for(int i=0;i<adj[current].size();i++){
-            node = adj[current].at(i);//current adjacent node
+        for(auto node: adj[current]){
             if(explored[node]==false){//if adjacent node has not been explored
                 tovisit.push(node);
                 if(node==goal)//if there is a way
