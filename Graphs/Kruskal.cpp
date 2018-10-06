@@ -44,11 +44,9 @@ int main(){
 		}
 		sort(edges.begin(),edges.end());
 		makeset();
-		for(int i=0;i<e;i++){
-			ed=edges[i];
+		for(auto ed : edges){
 			a=ed.second.first; b=ed.second.second;
 			if(uni(a,b)){
-				
 				mst+=ed.first;
 			}
 		
