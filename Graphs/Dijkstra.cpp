@@ -20,8 +20,7 @@ bool dijkstra(int S, int T){
         aux=tovisit.top(); tovisit.pop();
         current=aux.second;
 
-            for(int i=0;i<adj[current].size();i++){
-                aux=adj[current][i];
+            for(auto aux : adj[current]){
                 edgeweight=aux.first;
                 child=aux.second;
                 if(child==T)
