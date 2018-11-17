@@ -20,7 +20,6 @@ void mult(ll a[][tam], ll b[][tam]){//a <=== a*b
 						aux[i][j]=0;
 						for(k=0;k<tam;k++){
 							aux[i][j]+=(a[i][k]*b[k][j])%mod;
-							aux[i][j]=aux[i][j]%mod;
 						}
 					}
 				}
