@@ -1,3 +1,4 @@
+//used by ufpe maratona guys
 #include <bits/stdc++.h>
 using namespace std;
 struct pt{
@@ -85,9 +86,4 @@ double area(const vector<pt> &p){
         area+=(p[i]-p[0])%(p[j]-p[0]);
     }
     return abs(area)/2.0;
-}
-
-
-int main(){
-
 }
