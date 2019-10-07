@@ -7,8 +7,8 @@ class node{
 		T info;
 		node *next;
 		node(T val){
-			this->info = val;
-			this->next = NULL;
+			info = val;
+			next = NULL;
 		}
 
 };	
@@ -21,30 +21,30 @@ class queue{
 	public:
 		queue(){front=back=NULL;}
 		bool empty(){
-			return this->back==NULL and this->front==NULL;
+			return back==NULL and front==NULL;
 		}
 
 		void push(T val){
 			node<T> *aux = new node<T>(val);
 
 			if(front==NULL){
-				this->front=this->back=aux;
+				front=back=aux;
 			}else{
-				this->back->next = aux;
-				this->back = aux;
+				back->next = aux;
+				back = aux;
 			}
 		}
 
 		void pop(){
-			//		if(this->empty()) return;//if not commented, there will be an error if pop on empty queue
+			//		if(empty()) return;//if not commented, there will be an error if pop on empty queue
 
-			this->front = this->front->next;
+			front = front->next;
 
-			if(this->front==NULL) this->back = this->front;
+			if(front==NULL) back = front;
 		}
 
 		T top(){
-			return this->front->info;
+			return front->info;
 		}
 
 };
