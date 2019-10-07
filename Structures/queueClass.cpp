@@ -59,14 +59,14 @@ int32_t main(){
 	q.push(5);
 
 	cout<<q.top()<<endl;
-//return 0;
-q.pop();
-	cout<<q.top()<<endl;
-
+	//return 0;
 	q.pop();
 	cout<<q.top()<<endl;
 
 	q.pop();
-//	q->pop();
+	cout<<q.top()<<endl;
+
+	q.pop();
+	//	q->pop();
 	return 0;
 }
