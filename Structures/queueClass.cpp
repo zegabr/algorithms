@@ -1,28 +1,30 @@
 #include <iostream>
 using namespace std;
 
+template<class T>
 class node{
 	public:
-		int info;
+		T info;
 		node *next;
-		node(int info){
+		node(T info){
 			this->info = info;
 			this->next = NULL;
 		}
 
 };	
 
+template<class T>
 class queue{
 	private:
-		node *front, *back;
+		node<T> *front, *back;
 
 	public:
 		bool empty(){
 			return this->back==NULL and this->front==NULL;
 		}
 
-		void push(int info){
-			node *aux = new node(info);
+		void push(T info){
+			node<T> *aux = new node<T>(info);
 
 			if(front==NULL){
 				this->front=this->back=aux;
@@ -40,7 +42,7 @@ class queue{
 			if(this->front==NULL) this->back = this->front;
 		}
 
-		int top(){
+		T top(){
 			return this->front->info;
 		}
 
@@ -48,7 +50,7 @@ class queue{
 
 
 int32_t main(){
-	queue *q = new queue();
+	queue<int> *q = new queue<int>();
 	cout<<"is empty? "<<q->empty()<<endl;
 	q->push(10);
 
