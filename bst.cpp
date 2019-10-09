@@ -33,6 +33,7 @@ class bst{
 		}
 
 		void preorder(node<T> *R = root){
+			if(root==null) return;
 			if(root->left!=null) preorder(R->left);
 			cout<<R->info<<' ';
 			if(root->right!=null) preorder(R->right);
