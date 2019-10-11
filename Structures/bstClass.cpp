@@ -32,13 +32,21 @@ class bst{
 
 };
 void bst::insert(int val, node * R){
-	if(empty()){
-		cout<<"adding new node "<<val<<endl;
-		node *n = new node(val);
-		R = n;
-	}else if(R->left!=null and val < R->info) insert(val, R->left);
-	else if(R->right!=null and val > R->info) insert(val, R->left);
-	cout<<"returning at node "<<R->info<<endl;
+	if(R==null){
+		node *aux = new node(val);
+		root = aux;
+		return;
+	}
+	if(R->left==null and val < R->info){
+		node *aux = new node(val);
+		R->left = aux;
+		return;
+	}else if(R->right==null and val > R->info){
+		node *aux = new node(val);
+		R->left = aux;
+		return;
+	}else if(R->left!=null and  val < R->info) insert(val, R->left);
+	else if(R->right!=null and  val > R->info) insert(val, R->right);
 }
 void bst::inorder(node *R){
 	if(R==null) return;
@@ -56,6 +64,7 @@ int main(){
 	s.insert(20);
 	s.insert(1);
 	s.inorder();
+	cout<<s.empty()<<endl;
 
 
 }
