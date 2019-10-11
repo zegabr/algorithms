@@ -3,48 +3,59 @@ using namespace std;
 #define null NULL
 
 
-template<class T>
+
 class node{
 	public:
-		T info;
+		int info;
 		node *left, *right;
-		node(T val){
+		node(int val){
 			info = val;
 			left=right=null;
 		}
 };
 
-template<class T>
+
 class bst{
 	private:
-		node<T> *root;
-
+		node *root;
+		void inorder(node *R);
+		void insert(int val, node * R);
 	public:
 		bst(){root=null;}
 		bool empty(){
 			return root==null;
 		}
-		void insert(T val, node<T> *R = root){
-			if(empty()){
-				node<T> *n = new node<T>(val);
-				root = n;
-			}else if(val < R->info) insert(val, R->left);
-			else if(val > R->info) insert(val, R->left);
-		}
+		void insert(int data){ insert(data, root);} 
+		void inorder(){ inorder(root);};
 
-		void preorder(node<T> *R = root){
-			if(root==null) return;
-			if(root->left!=null) preorder(R->left);
-			cout<<R->info<<' ';
-			if(root->right!=null) preorder(R->right);
 
-		}
 
 };
-
+void bst::insert(int val, node * R){
+	if(empty()){
+		cout<<"adding new node "<<val<<endl;
+		node *n = new node(val);
+		R = n;
+	}else if(R->left!=null and val < R->info) insert(val, R->left);
+	else if(R->right!=null and val > R->info) insert(val, R->left);
+	cout<<"returning at node "<<R->info<<endl;
+}
+void bst::inorder(node *R){
+	if(R==null) return;
+	if(R->left) inorder(R->left);
+	cout<<R->info<<' ';
+	if(R->right) inorder(R->right);
+}
 
 int main(){
-	bst<int> s;
+	bst s;
+
+	s.insert(10);
+	s.insert(11);
+	s.insert(5);
+	s.insert(20);
+	s.insert(1);
+	s.inorder();
 
 
 }
