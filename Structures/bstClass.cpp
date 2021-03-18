@@ -1,72 +1,96 @@
 #include<iostream>
 using namespace std;
-#define null NULL
 
 
 
-class node{
+class Node{
 	public:
-		int info;
-		node *left, *right;
-		node(int val){
-			info = val;
-			left=right=null;
+		int val;
+		Node *left, *right;
+		Node(int val){
+			this->val = val;
+			left = right = NULL;
 		}
 };
 
 
-class bst{
+class BST{
 	private:
-		node *root;
-		void inorder(node *R);
-		void insert(int val, node * R);
-	public:
-		bst(){root=null;}
-		bool empty(){
-			return root==null;
+		Node *root;
+		void inorder(Node *R){
+			if(R == NULL) return;
+			inorder(R->left);
+			cout << R->val << ' ';
+			inorder(R->right);
+		};
+		Node* insert(Node * node, int val){
+			if(node == NULL){
+				return new Node(val);
+			}
+			if(val < node->val){
+				if(node->left == NULL){
+					node->left = new Node(val);
+					return node;
+				}else node->left = insert(node->left, val);
+			}else if(val > node->val){
+				if(node->right == NULL){
+					node->right = new Node(val);
+					return node;
+				}else node->right = insert(node->right, val);
+			}
+			return node;
 		}
-		void insert(int data){ insert(data, root);} 
-		void inorder(){ inorder(root);};
 
+		Node* remove(Node *node, int val){
+			if(node == NULL) return NULL;
+            if(val < node->val) node->left = remove(node->left, val);
+            else if(val > node->val) node->right = remove(node->right, val);
+            else{
+                if(!node->left) return node->right;
+                if(!node->right) return node->left;
+                
+                Node* curr = node->right;
+                while(curr->left and curr->left->left)
+                    curr = curr->left;
+                
+                if(curr->left){
+                    node->val = curr->left->val;
+                    curr->left = curr->left->right;
+                }else{
+                    node->val = curr->val;
+                    node->right = curr->right;
+                }
+            }
+            return node;
+		}
 
-
+	public:
+		BST(): root(NULL){}
+		bool empty(){
+			return root == NULL;
+		}
+		void insert(int data){ root = insert(root, data);} 
+		void inorder(){ inorder(root);}
+		void remove(int data) {root = remove(root, data);}
 };
-void bst::insert(int val, node * R){
-	if(root==null){
-		node *aux = new node(val);
-		root = aux;
-		return;
-	}
-	if( val < R->info){
-		if(R->left==null){
-			node *aux = new node(val);
-			R->left = aux;
-			return;
-		}else insert(val, R->left);
-	}else if( val > R->info){
-		if(R->right==null){
-			node *aux = new node(val);
-			R->right = aux;
-			return;
-		}else insert(val, R->right);
-	}
-}
-void bst::inorder(node *R){
-	if(R==null) return;
-	if(R->left) inorder(R->left);
-	cout<<R->info<<' ';
-	if(R->right) inorder(R->right);
-}
 
 int main(){
-	bst s;
+	BST s;
 
 	s.insert(10);
 	s.insert(11);
 	s.insert(5);
 	s.insert(20);
 	s.insert(1);
-	s.inorder();
+	s.inorder(); cout << endl;
+	s.remove(5);
+	s.remove(20);
+	s.remove(11);
+	s.remove(10);
+	s.inorder(); cout << endl;
+	s.remove(1);
+	s.remove(5);
+	s.inorder(); cout << endl;
 	
 
 
